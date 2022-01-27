@@ -8,7 +8,7 @@ def euclidean_distance(row1, row2):
 
 def get_neighbors(train, test_row, num_neighbors):
     distances = list()
-    a=0
+    a=[]
     for train_row in train:
         dist = euclidean_distance(train_row, test_row)
         distances.append((train_row, dist))
@@ -16,8 +16,7 @@ def get_neighbors(train, test_row, num_neighbors):
     neighbors = list()
     for i in range(num_neighbors):
         neighbors.append(distances[i][0])
-        if a<distances[i][1]:
-            a=distances[i][1]
+        a.append(distances[i][1])
     return neighbors,a
 
 
@@ -31,7 +30,8 @@ def click_event(event, x, y,
         for neighbor in neighbors:
             cv2.circle(img, neighbor, 4, (0, 0, 255), -1)
             print(neighbor)
-        cv2.circle(img, (x, y), int(a), (255, 0, 0), 1)
+        for i in a:
+            cv2.circle(img, (x, y), int(i), (255, 0, 0), 1)
         cv2.imshow('image', img)
 
 
